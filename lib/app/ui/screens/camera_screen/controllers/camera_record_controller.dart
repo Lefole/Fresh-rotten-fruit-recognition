@@ -4,7 +4,6 @@ import 'package:flutter_meedu/notifiers.dart';
 
 class CameraRecordController extends StateNotifier {
   CameraRecordController(super.initialState);
-
   late CameraController cameraController;
   late List<CameraDescription> cameras;
   bool isCameraInitialized = false;

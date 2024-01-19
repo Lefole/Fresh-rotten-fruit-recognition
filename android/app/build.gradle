@@ -32,6 +32,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    aaptOptions {
+        noCompress 'tflite'
+        noCompress 'lite'
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -64,4 +69,7 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+
+dependencies {
+    // implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
+}
