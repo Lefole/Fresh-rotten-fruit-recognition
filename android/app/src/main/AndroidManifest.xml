@@ -1,6 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 <uses-permission android:name="android.permission.CAMERA" />
-<uses-feature android:name="android.hardware.camera" />
     <application
         android:label="rotten_fruit_recognition"
         android:name="${applicationName}"
