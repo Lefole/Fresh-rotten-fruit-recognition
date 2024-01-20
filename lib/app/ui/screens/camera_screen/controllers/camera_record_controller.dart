@@ -47,10 +47,10 @@ class CameraRecordController extends GetxController {
   }
 
   void startImageStream() {
-    cameraController.startImageStream((image) {
+    cameraController.startImageStream((CameraImage image) {
       if (!isDetecting) {
         isDetecting = true;
-        objectDetector(image);
+        //objectDetector(image);
       }
       update();
     });
@@ -88,8 +88,8 @@ class CameraRecordController extends GetxController {
 
   objectDetector(CameraImage image) {
     var detector = Tflite.detectObjectOnFrame(
-      bytesList: image.planes.map((e) {
-        return e.bytes;
+      bytesList: image.planes.map((plane) {
+        return plane.bytes;
       }).toList(),
       model: "SSDMobileNet",
       imageHeight: image.height,
@@ -100,24 +100,25 @@ class CameraRecordController extends GetxController {
       rotation: 90,
       threshold: 0.4,
     ).then((value) {
-      isDetecting = false;
-      final object = value!.first;
-      if (object['confidence'] > 0.4) {
-        objectDetected['x'] = object['rect']['x'];
-        objectDetected['y'] = object['rect']['y'];
-        objectDetected['h'] = object['rect']['h'];
-        objectDetected['w'] = object['rect']['w'];
-        objectDetected['label'] = object['label'];
-        log("${objectDetected['confidence']}-${objectDetected['label']}");
+      if (value != null) {
+        isDetecting = false;
+        final object = value.first;
+        if (object['confidence'] > 0.4) {
+          objectDetected['x'] = object['rect']['x'];
+          objectDetected['y'] = object['rect']['y'];
+          objectDetected['h'] = object['rect']['h'];
+          objectDetected['w'] = object['rect']['w'];
+          objectDetected['label'] = object['label'];
+          log("${objectDetected['confidence']}-${objectDetected['label']}");
+        }
       }
       update();
     });
-    log("$detector");
   }
 
   @override
   void dispose() {
     super.dispose();
-    //cameraController.dispose();
+    cameraController.dispose();
   }
 }

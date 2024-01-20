@@ -12,12 +12,20 @@ class CameraScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.black54,
+        title: const Text(
+          "Clasificador de cabros",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       body: GetBuilder<CameraRecordController>(
         init: CameraRecordController(),
         builder: (controller) {
           return controller.isCameraInitialized.value
               ? Stack(
-                  fit: StackFit.expand,
+                  fit: StackFit.loose,
                   children: [
                     CameraPreview(controller.cameraController),
                     ObjectDetectedBoxWidget(
@@ -25,8 +33,8 @@ class CameraScreen extends StatelessWidget {
                       // y: controller.objectDetected['y'] * 500,
                       // h: controller.objectDetected['h'] * context.height,
                       // w: controller.objectDetected['w'] * context.width,
-                      x: 50, y: 50, h: 100, w: 100,
-                      label: "${controller.objectDetected['label']}",
+                      x: 100, y: 100, h: 100, w: 100,
+                      label: "${controller.objectDetected['label']}AAAAAAA",
                     )
                   ],
                 )
