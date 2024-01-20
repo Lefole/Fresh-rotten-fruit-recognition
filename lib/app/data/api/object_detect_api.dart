@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:rotten_fruit_recognition/app/domain/models/object_detected_model.dart';
 
@@ -8,6 +10,7 @@ class ObjectDetectedApi {
 
   Future<ObjectDetectedModel> getObjectDetected() async {
     final response = await dio.get("");
+    log(response.toString());
     return ObjectDetectedModel(
       "label",
       60,
