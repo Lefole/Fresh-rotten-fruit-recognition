@@ -4,8 +4,11 @@ import 'package:camera/camera.dart';
 import 'package:flutter_tflite/flutter_tflite.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:rotten_fruit_recognition/app/data/api/object_detect_api.dart';
 
 class CameraRecordController extends GetxController {
+  final objectDetectedApi = ObjectDetectedApi();
+
   late CameraController cameraController;
   late List<CameraDescription> cameras;
 
