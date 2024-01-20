@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_meedu/screen_utils.dart';
 import 'package:tflite/tflite.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -108,8 +107,8 @@ class _CameraScreenState extends State<CameraScreen> {
                     top: objectDetected['x'],
                     left: objectDetected['y'],
                     child: Container(
-                      height: objectDetected['h'] * context.height / 100,
-                      width: objectDetected['w'] * context.width / 100,
+                      height: objectDetected['h'],
+                      width: objectDetected['w'],
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: Colors.green),
