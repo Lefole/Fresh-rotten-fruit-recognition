@@ -10,6 +10,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:rotten_fruit_recognition/app/data/api/object_detected_api.dart';
 import 'package:rotten_fruit_recognition/app/domain/models/object_detected_model.dart';
 import 'package:rotten_fruit_recognition/app/domain/response/object_detected_response.dart';
+import 'package:image/image.dart' as img;
 
 class CameraRecordController extends GetxController {
   //PETICION API
@@ -61,41 +62,33 @@ class CameraRecordController extends GetxController {
 
   objectDetector(CameraImage image) async {
     try {
-      const MethodChannel _channel = MethodChannel('yuvtransform');
-      List<int> strides = Int32List(image.planes.length * 2);
-      int index = 0;
-      // We need to transform the image to Uint8List so that the native code could
-      // transform it to byte[]
-      List<Uint8List> data = image.planes.map((plane) {
-        strides[index] = (plane.bytesPerRow);
-        index++;
-        strides[index] = (plane.bytesPerPixel)!;
-        index++;
-        return plane.bytes;
-      }).toList();
-      Uint8List imageJpeg = await _channel.invokeMethod('yuvtransform', {
-        'platforms': data,
-        'height': image.height,
-        'width': image.width,
-        'strides': strides,
-        'quality': 60
-      });
+      Uint8List uint8List = cameraImageToByteList(image);
+      img.Image? imgData = img.decodeImage(uint8List);
 
-      // final response = await objectDetectedApi.getObjectDetected(
-      //   image.height,
-      //   image.width,
-      //   image.planes[0].bytes,
-      //   image.planes[1].bytes,
-      //   image.planes[2].bytes,
-      // );
-      final response = await objectDetectedApi.getObjectDetected(imageJpeg);
-      objectDetected = response;
+      if (imgData != null) {
+        // Encode the image to JPEG format
+        Uint8List jpegData = img.encodeJpg(imgData);
+
+        // Send the JPEG data to the API
+        final response = await objectDetectedApi.getObjectDetected(jpegData);
+        objectDetected = response;
+      } else {
+        log("ERROR METHOD: Failed to decode image");
+        objectDetected = ObjectDetectedResponse.defaultResponse();
+      }
     } catch (e) {
       log("ERROR METHOD: $e");
       objectDetected = ObjectDetectedResponse.defaultResponse();
     }
     isDetecting = false;
     update();
+  }
+
+  Uint8List cameraImageToByteList(CameraImage image) {
+    // Convert CameraImage to Uint8List
+    var plane = image.planes[0];
+    var bytes = plane.bytes;
+    return Uint8List.fromList(bytes);
   }
 
   @override
