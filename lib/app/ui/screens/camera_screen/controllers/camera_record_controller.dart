@@ -35,8 +35,12 @@ class CameraRecordController extends GetxController {
   initCamera() async {
     if (await Permission.camera.request().isGranted) {
       cameras = await availableCameras();
-      cameraController = CameraController(cameras[0], ResolutionPreset.max,
-          imageFormatGroup: ImageFormatGroup.yuv420);
+      cameraController = CameraController(
+        cameras[0],
+        ResolutionPreset.max,
+        enableAudio: false,
+        imageFormatGroup: ImageFormatGroup.jpeg,
+      );
       await cameraController.initialize().then((value) => startImageStream());
       isCameraInitialized(true);
       update();
@@ -117,14 +121,15 @@ class CameraRecordController extends GetxController {
 
   objectDetector(CameraImage image) async {
     try {
-      final response = await objectDetectedApi.getObjectDetected(
-        image.height,
-        image.width,
-        image.planes[0].bytes,
-        image.planes[1].bytes,
-        image.planes[2].bytes,
-      );
-      objectDetected = response;
+      log(image.format.group.name);
+      // final response = await objectDetectedApi.getObjectDetected(
+      //   image.height,
+      //   image.width,
+      //   image.planes[0].bytes,
+      //   image.planes[1].bytes,
+      //   image.planes[2].bytes,
+      // );
+      // objectDetected = response;
     } catch (e) {
       log("ERROR METHOD: $e");
       objectDetected = ObjectDetectedResponse.defaultResponse();

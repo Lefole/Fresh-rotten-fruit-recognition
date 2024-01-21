@@ -34,13 +34,13 @@ packages:
     source: hosted
     version: "0.10.5+9"
   camera_android:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: camera_android
-      sha256: "351429510121d179b9aac5a2e8cb525c3cd6c39f4d709c5f72dfb21726e52371"
+      sha256: f83e406d34f5faa80bf0f5c3beee4b4c11da94a94e9621c1bb8e312988621b4b
       url: "https://pub.dev"
     source: hosted
-    version: "0.10.8+16"
+    version: "0.10.8+2"
   camera_avfoundation:
     dependency: transitive
     description:
