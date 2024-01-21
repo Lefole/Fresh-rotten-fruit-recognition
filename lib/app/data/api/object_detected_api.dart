@@ -2,8 +2,6 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
-import 'package:rotten_fruit_recognition/app/domain/models/object_detected_model.dart';
 import 'package:rotten_fruit_recognition/app/domain/response/object_detected_response.dart';
 
 class ObjectDetectedApi {
@@ -12,14 +10,22 @@ class ObjectDetectedApi {
   );
 
   Future<ObjectDetectedResponse> getObjectDetected(
-    Uint8List image,
+    int height,
+    int width,
+    Uint8List y,
+    Uint8List u,
+    Uint8List v,
   ) async {
     ObjectDetectedResponse res;
     try {
       final response = await dio.post(
         "/process_image",
         data: {
-          "image": image,
+          "height": height,
+          "width": width,
+          "y": y,
+          "u": u,
+          "v": v,
         },
         options: Options(),
       );

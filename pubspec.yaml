@@ -39,6 +39,7 @@ dependencies:
   get: ^4.6.6
   dio: ^5.4.0
   image: ^4.1.4
+  yuv_converter: ^0.0.2
 
 dev_dependencies:
   flutter_test:
