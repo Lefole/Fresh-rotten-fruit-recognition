@@ -28,14 +28,15 @@ class CameraScreen extends StatelessWidget {
                   fit: StackFit.loose,
                   children: [
                     CameraPreview(controller.cameraController),
-                    ObjectDetectedBoxWidget(
-                      // x: controller.objectDetected['x'] * 700,
-                      // y: controller.objectDetected['y'] * 500,
-                      // h: controller.objectDetected['h'] * context.height,
-                      // w: controller.objectDetected['w'] * context.width,
-                      x: 100, y: 100, h: 100, w: 100,
-                      label: "${controller.objectDetected['label']}AAAAAAA",
-                    )
+                    (controller.objectDetected.label != "")
+                        ? ObjectDetectedBoxWidget(
+                            x: controller.objectDetected.x,
+                            y: controller.objectDetected.y,
+                            h: controller.objectDetected.h,
+                            w: controller.objectDetected.w,
+                            label: controller.objectDetected.label,
+                          )
+                        : const SizedBox(),
                   ],
                 )
               : const Center(
