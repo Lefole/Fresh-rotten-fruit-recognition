@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rotten_fruit_recognition/app/ui/screens/camera_screen/controllers/camera_capture_controller.dart';
 import 'package:rotten_fruit_recognition/app/ui/screens/camera_screen/controllers/camera_configuration_controller.dart';
 import 'package:rotten_fruit_recognition/app/ui/screens/camera_screen/widgets/take_pic_button.dart';
 import 'package:rotten_fruit_recognition/app/ui/widgets/object_detected_box_widget.dart';
@@ -15,12 +16,12 @@ class CameraScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black54,
         title: const Text(
-          "Clasificador de cabros",
+          "Detección del estado de frutas",
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: GetBuilder<CameraRecordController>(
-        init: CameraRecordController(),
+      body: GetBuilder<CameraConfigurationController>(
+        init: CameraConfigurationController(),
         builder: (controller) {
           return controller.isCameraInitialized.value
               ? Column(
@@ -51,7 +52,8 @@ class CameraScreen extends StatelessWidget {
                       ),
                       child: Center(
                         child: TakePictureButton(
-                          controller: controller,
+                          captureController: CameraCaptureController(
+                              cameraController: controller.cameraController),
                           isCameraInitialized:
                               controller.isCameraInitialized.value,
                         ),

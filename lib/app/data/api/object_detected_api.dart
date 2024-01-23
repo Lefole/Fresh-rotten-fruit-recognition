@@ -6,7 +6,11 @@ import 'package:rotten_fruit_recognition/app/domain/response/object_detected_res
 
 class ObjectDetectedApi {
   Dio dio = Dio(
-    BaseOptions(baseUrl: 'http://192.168.3.92:5050/api/v1/'),
+    BaseOptions(
+        baseUrl: 'http://192.168.3.92:5050/api/v1/',
+        connectTimeout: const Duration(
+          seconds: 1,
+        )),
   );
 
   Future<ObjectDetectedResponse> getObjectDetected(

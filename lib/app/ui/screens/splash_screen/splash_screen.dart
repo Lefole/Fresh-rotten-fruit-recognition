@@ -8,7 +8,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SplashScreenController(context: context).navigateToCamera();
+    SplashScreenController().navigateToCamera(context);
     return Scaffold(
       body: Container(
         width: double.infinity,
