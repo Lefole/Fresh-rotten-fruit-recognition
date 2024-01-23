@@ -39,10 +39,12 @@ dependencies:
   get: ^4.6.6
   dio: ^5.4.0
   image: ^4.1.4
-  yuv_converter: ^0.0.2
+  lottie: ^3.0.0
+  gallery_saver: ^2.0.1
+  google_fonts: ^4.0.4
 
-dependency_overrides:
-  camera_android: 0.10.8+2
+# dependency_overrides:
+#   camera_android: 0.10.8+2
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +56,13 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+  min_sdk_android: 21
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -72,6 +81,7 @@ flutter:
     - assets/mobilenet_v1_1.0_224.txt
     - assets/ssd_mobilenet.tflite
     - assets/ssd_mobilenet.txt
+    - assets/lotties/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

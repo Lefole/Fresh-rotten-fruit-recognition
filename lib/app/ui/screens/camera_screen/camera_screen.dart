@@ -1,8 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rotten_fruit_recognition/app/ui/screens/camera_screen/controllers/camera_record_controller.dart';
-import 'package:rotten_fruit_recognition/app/ui/screens/camera_screen/widgets/object_detected_box_widget.dart';
+import 'package:rotten_fruit_recognition/app/ui/screens/camera_screen/controllers/camera_configuration_controller.dart';
+import 'package:rotten_fruit_recognition/app/ui/screens/camera_screen/widgets/take_pic_button.dart';
+import 'package:rotten_fruit_recognition/app/ui/widgets/object_detected_box_widget.dart';
 
 class CameraScreen extends StatelessWidget {
   const CameraScreen({super.key});
@@ -22,19 +23,40 @@ class CameraScreen extends StatelessWidget {
         init: CameraRecordController(),
         builder: (controller) {
           return controller.isCameraInitialized.value
-              ? Stack(
-                  fit: StackFit.loose,
+              ? Column(
+                  mainAxisSize: MainAxisSize.max,
                   children: [
-                    CameraPreview(controller.cameraController),
-                    (controller.objectDetected.label != "")
-                        ? ObjectDetectedBoxWidget(
-                            x: controller.objectDetected.x,
-                            y: controller.objectDetected.y,
-                            h: controller.objectDetected.h,
-                            w: controller.objectDetected.w,
-                            label: controller.objectDetected.label,
-                          )
-                        : const SizedBox(),
+                    Stack(
+                      fit: StackFit.loose,
+                      children: [
+                        CameraPreview(
+                          controller.cameraController,
+                        ),
+                        (controller.objectDetected.label != "")
+                            ? ObjectDetectedBoxWidget(
+                                x: controller.objectDetected.x,
+                                y: controller.objectDetected.y,
+                                h: controller.objectDetected.h,
+                                w: controller.objectDetected.w,
+                                label: controller.objectDetected.label,
+                              )
+                            : const SizedBox(),
+                      ],
+                    ),
+                    Container(
+                      height: 174,
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        color: Colors.black,
+                      ),
+                      child: Center(
+                        child: TakePictureButton(
+                          controller: controller,
+                          isCameraInitialized:
+                              controller.isCameraInitialized.value,
+                        ),
+                      ),
+                    ),
                   ],
                 )
               : const Center(
