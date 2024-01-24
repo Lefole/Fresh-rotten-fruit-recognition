@@ -7,10 +7,8 @@ import 'package:rotten_fruit_recognition/app/domain/response/object_detected_res
 class ObjectDetectedApi {
   Dio dio = Dio(
     BaseOptions(
-        baseUrl: 'http://192.168.3.92:5050/api/v1/',
-        connectTimeout: const Duration(
-          seconds: 1,
-        )),
+      baseUrl: 'http://192.168.3.92:5050/api/v1/',
+    ),
   );
 
   Future<ObjectDetectedResponse> getObjectDetected(
@@ -19,6 +17,8 @@ class ObjectDetectedApi {
     Uint8List y,
     Uint8List u,
     Uint8List v,
+    int bytesPerPixel,
+    int bytesPerRow,
   ) async {
     ObjectDetectedResponse res;
     try {
@@ -30,6 +30,8 @@ class ObjectDetectedApi {
           "y": y,
           "u": u,
           "v": v,
+          "bytesPerPixel": bytesPerPixel,
+          "bytesPerRow": bytesPerRow,
         },
         options: Options(),
       );

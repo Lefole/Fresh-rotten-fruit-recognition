@@ -34,14 +34,16 @@ class CameraStreamController extends GetxController {
           "porcentaje acierto";
       //TODO: ARREGLAR CONEXIÓN DIO
 
-      // final response = await objectDetectedApi.getObjectDetected(
-      //   image.height,
-      //   image.width,
-      //   image.planes[0].bytes,
-      //   image.planes[1].bytes,
-      //   image.planes[2].bytes,
-      // );
-      //objectDetected = response;
+      final response = await objectDetectedApi.getObjectDetected(
+        image.height,
+        image.width,
+        image.planes[0].bytes,
+        image.planes[1].bytes,
+        image.planes[2].bytes,
+        image.planes[1].bytesPerPixel ?? 0,
+        image.planes[1].bytesPerRow,
+      );
+      objectDetected = response;
     } on DioException catch (e) {
       log("ERROR: $e");
       objectDetected = ObjectDetectedResponse.defaultResponse();

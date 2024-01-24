@@ -53,7 +53,8 @@ class CameraScreen extends StatelessWidget {
                       child: Center(
                         child: TakePictureButton(
                           captureController: CameraCaptureController(
-                              cameraController: controller.cameraController),
+                            cameraController: controller.cameraController,
+                          ),
                           isCameraInitialized:
                               controller.isCameraInitialized.value,
                         ),
