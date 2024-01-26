@@ -28,10 +28,6 @@ class CameraStreamController extends GetxController {
 
   void objectDetector(CameraImage image) async {
     try {
-      "Nombre";
-      "estado";
-      "cuadrado de poscion [1,2],[3,4]"
-          "porcentaje acierto";
       //TODO: ARREGLAR CONEXIÓN DIO
 
       final response = await objectDetectedApi.getObjectDetected(
@@ -44,6 +40,10 @@ class CameraStreamController extends GetxController {
         image.planes[1].bytesPerRow,
       );
       objectDetected = response;
+      log("x: ${objectDetected.x}");
+      log("y: ${objectDetected.y}");
+      log("h: ${objectDetected.h}");
+      log("w: ${objectDetected.w}");
     } on DioException catch (e) {
       log("ERROR: $e");
       objectDetected = ObjectDetectedResponse.defaultResponse();

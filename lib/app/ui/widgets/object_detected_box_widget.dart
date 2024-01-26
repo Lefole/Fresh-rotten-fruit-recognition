@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class ObjectDetectedBoxWidget extends StatelessWidget {
@@ -17,12 +19,15 @@ class ObjectDetectedBoxWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    log("$screenHeight -$screenWidth");
     return Positioned(
-      top: x,
-      left: y,
+      top: y / 1280 * screenHeight,
+      left: x / 720 * screenWidth,
       child: Container(
-        height: h,
-        width: w,
+        height: h / 1280 * screenHeight,
+        width: w / 720 * screenWidth,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.green),

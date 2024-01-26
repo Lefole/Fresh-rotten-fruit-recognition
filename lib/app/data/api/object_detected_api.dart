@@ -2,14 +2,11 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:rotten_fruit_recognition/app/domain/response/object_detected_response.dart';
 
 class ObjectDetectedApi {
-  Dio dio = Dio(
-    BaseOptions(
-      baseUrl: 'http://192.168.3.92:5050/api/v1/',
-    ),
-  );
+  final dio = Get.find<Dio>();
 
   Future<ObjectDetectedResponse> getObjectDetected(
     int height,
@@ -36,7 +33,8 @@ class ObjectDetectedApi {
         options: Options(),
       );
       if (response.statusCode == 200) {
-        res = ObjectDetectedResponse.fromJson(response.data);
+        log(response.data["result"].toString());
+        res = ObjectDetectedResponse.fromJson(response.data["result"]);
       } else {
         log("ERROR API: ${response.data['message']}");
         throw Exception();
