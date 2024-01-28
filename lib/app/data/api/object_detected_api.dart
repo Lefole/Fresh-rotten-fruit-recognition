@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:typed_data';
 
@@ -49,7 +50,7 @@ class ObjectDetectedApi {
     return res;
   }
 
-  Future<ObjectDetectedResponse> getObjectDetectedByJPG(Uint8List image) async {
+  Future<ObjectDetectedResponse> getObjectDetectedByJPG(String image) async {
     ObjectDetectedResponse res;
     try {
       final response = await dio.post(

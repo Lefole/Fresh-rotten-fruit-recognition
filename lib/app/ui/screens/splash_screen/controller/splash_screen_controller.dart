@@ -12,9 +12,9 @@ class SplashScreenController extends GetxController {
 
   void checkPermissionsAndNavigate() async {
     final cameraPermission = await Permission.camera.request().isGranted;
-    final storagePermission = await Permission.storage.request().isGranted;
+    // final storagePermission = await Permission.storage.request().isGranted;
 
-    if (cameraPermission && storagePermission) {
+    if (cameraPermission) {
       navigateToCamera();
     } else {
       SystemNavigator.pop();

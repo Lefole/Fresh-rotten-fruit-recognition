@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
@@ -99,8 +100,13 @@ class CameraConfigurationController extends GetxController {
 
     //final image=img_lib.decodeImage(Uint8List.fromList())
 
-    Uint8List list = await picture.readAsBytes();
-    final response = await objectDetectedApi.getObjectDetectedByJPG(list);
+    final path = picture.path;
+    final bytes = await File(path).readAsBytes();
+    final img_lib.Image? image = img_lib.decodeImage(bytes);
+
+    List<int> jpg = img_lib.encodeJpg(image!);
+    String base64Image = base64Encode(jpg);
+    final response = await objectDetectedApi.getObjectDetectedByJPG(base64Image);
     objectDetected = response;
     isDetecting = false;
     update();

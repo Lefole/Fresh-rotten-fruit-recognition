@@ -25,11 +25,11 @@ class ObjectDetectedBoxWidget extends StatelessWidget {
     final yProportion = y / 1280;
     log("Proportion: $yProportion - $xProportion");
     return Positioned(
-      top: (y / 2) * screenHeight / 1280,
-      left: (x / 2) * screenWidth / 720,
+      top: ((y / 2) * screenHeight) / 1280,
+      left: (x * screenWidth) / 720,
       child: Container(
-        height: (h) * screenHeight / 1280,
-        width: (w / 2) * screenWidth / 720,
+        height: (h * screenHeight) / 1280,
+        width: (w * screenWidth) / 720,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.green),
