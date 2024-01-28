@@ -21,13 +21,15 @@ class ObjectDetectedBoxWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    log("$screenHeight -$screenWidth");
+    final xProportion = x / 720;
+    final yProportion = y / 1280;
+    log("Proportion: $yProportion - $xProportion");
     return Positioned(
-      top: y / 1280 * screenHeight,
-      left: x / 720 * screenWidth,
+      top: (y / 2) * screenHeight / 1280,
+      left: (x / 2) * screenWidth / 720,
       child: Container(
-        height: h / 1280 * screenHeight,
-        width: w / 720 * screenWidth,
+        height: (h) * screenHeight / 1280,
+        width: (w / 2) * screenWidth / 720,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.green),

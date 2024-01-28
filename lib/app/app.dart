@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
 import 'package:rotten_fruit_recognition/app/ui/screens/camera_screen/camera_screen.dart';
 import 'package:rotten_fruit_recognition/app/ui/screens/picture_screen/picture_screen.dart';
 import 'package:rotten_fruit_recognition/app/ui/screens/splash_screen/splash_screen.dart';
@@ -15,10 +15,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      routes: {
-        'pictureScreen': (_) => const PictureScreen(),
-        'cameraScreen': (_) => const CameraScreen()
-      },
+      initialRoute: "/splash_screen",
+      getPages: [
+        GetPage(name: "/splash_screen", page: () => const SplashScreen()),
+        GetPage(name: "/camera_screen", page: () => const CameraScreen()),
+        GetPage(name: "/picture_screen", page: () => const PictureScreen()),
+      ],
       home: const SplashScreen(),
     );
   }

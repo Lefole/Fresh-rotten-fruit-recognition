@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class ResultsWidget extends StatelessWidget {
-  const ResultsWidget({
-    super.key,
-  });
+  final bool isFresh;
+  final double confidencePercentage;
+  const ResultsWidget(
+      {super.key, required this.isFresh, required this.confidencePercentage});
 
   @override
   Widget build(BuildContext context) {
@@ -22,23 +23,33 @@ class ResultsWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            LottieBuilder.asset(
-              "assets/lotties/fresh_fruit.json",
-              width: 150,
-            ),
+            if (!isFresh)
+              Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.rotationY(3.141), // Gira horizontalmente
+                child: LottieBuilder.asset(
+                  "assets/lotties/rotten_fruit_2.json",
+                  width: 150,
+                ),
+              )
+            else
+              LottieBuilder.asset(
+                "assets/lotties/fresh_fruit.json",
+                width: 150,
+              ),
             const Expanded(child: SizedBox()),
-            const SizedBox(
+            SizedBox(
               width: 150,
               child: Column(
                 children: [
                   CircularProgressIndicator(
-                    value: 0.8,
+                    value: confidencePercentage,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Text(
-                    "Identificado con un 99% de coincidencia",
+                    "Identificado con un $confidencePercentage% de coincidencia",
                     textAlign: TextAlign.center,
                   )
                 ],

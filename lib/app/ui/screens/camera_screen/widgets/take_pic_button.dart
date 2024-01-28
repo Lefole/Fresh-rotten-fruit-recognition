@@ -1,27 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:rotten_fruit_recognition/app/ui/screens/camera_screen/controllers/camera_capture_controller.dart';
+import 'package:rotten_fruit_recognition/app/ui/screens/camera_screen/controllers/camera_configuration_controller.dart';
 
 class TakePictureButton extends StatelessWidget {
-  final CameraCaptureController captureController;
-  final bool isCameraInitialized;
+  final CameraConfigurationController controller;
 
   const TakePictureButton({
     Key? key,
-    required this.captureController,
-    required this.isCameraInitialized,
+    required this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        final picture = await captureController.takePicture();
-        final jpegPicturePath =
-            await captureController.savePictureAsJPG(picture);
-        await Future.delayed(
-            const Duration(milliseconds: 1),
-            () => captureController.navigateToPictureScreen(
-                context, jpegPicturePath));
+        controller.takePictureAndNavigate();
       },
       child: Container(
         height: 60,

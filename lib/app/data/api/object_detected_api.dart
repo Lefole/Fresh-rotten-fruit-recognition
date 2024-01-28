@@ -48,4 +48,31 @@ class ObjectDetectedApi {
     }
     return res;
   }
+
+  Future<ObjectDetectedResponse> getObjectDetectedByJPG(Uint8List image) async {
+    ObjectDetectedResponse res;
+    try {
+      final response = await dio.post(
+        "/process_jpg_image",
+        data: {
+          "image": image,
+        },
+        options: Options(),
+      );
+      if (response.statusCode == 200) {
+        log(response.data["result"].toString());
+        res = ObjectDetectedResponse.fromJson(response.data["result"]);
+      } else {
+        log("ERROR API: ${response.data['message']}");
+        throw Exception();
+      }
+    } on DioException catch (e) {
+      log("DIO ERROR: $e");
+      res = ObjectDetectedResponse.defaultResponse();
+    } catch (e) {
+      log("ERROR: $e");
+      res = ObjectDetectedResponse.defaultResponse();
+    }
+    return res;
+  }
 }

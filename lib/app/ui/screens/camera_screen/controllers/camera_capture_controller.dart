@@ -4,9 +4,8 @@ import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'package:image/image.dart' as imglib;
-import 'package:rotten_fruit_recognition/app/ui/screens/picture_screen/controllers/picture_screen_controller.dart';
 
 class CameraCaptureController {
   CameraController cameraController;
@@ -58,7 +57,7 @@ class CameraCaptureController {
     //TODO: arreglar dispose
     // Future.delayed(
     //     const Duration(milliseconds: 500), () => cameraController.dispose());
-    Get.find<PictureScreenController>().init(imagePath, "A", "");
+    //.find<PictureScreenController>().init(imagePath, "A", "");
     Navigator.pushNamed(context, 'pictureScreen');
   }
 }
