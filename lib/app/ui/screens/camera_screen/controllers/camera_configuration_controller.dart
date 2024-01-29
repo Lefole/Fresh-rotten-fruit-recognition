@@ -15,6 +15,7 @@ class CameraConfigurationController extends GetxController {
 
   var isDetecting = false;
   var isCameraInitialized = false.obs;
+  bool photoTaken = false;
 
   ObjectDetectedResponse objectDetected =
       ObjectDetectedResponse.defaultResponse();
@@ -93,6 +94,9 @@ class CameraConfigurationController extends GetxController {
   }
 
   void takePictureAndNavigate() async {
+    photoTaken = true;
+    update();
+
     stopImageStream();
     XFile picture = await takePicture();
     final path = picture.path;
@@ -104,6 +108,7 @@ class CameraConfigurationController extends GetxController {
     final response =
         await objectDetectedApi.getObjectDetectedByJPG(base64Image);
     objectDetected = response;
+    photoTaken = false;
     update();
     navigateToPictureScreen(picture.path);
   }

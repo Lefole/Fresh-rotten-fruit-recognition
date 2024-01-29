@@ -23,7 +23,8 @@ class CameraScreen extends StatelessWidget {
       body: GetBuilder<CameraConfigurationController>(
         init: CameraConfigurationController(),
         builder: (controller) {
-          return controller.isCameraInitialized.value
+          return controller.isCameraInitialized.value &&
+                  !controller.photoTaken
               ? Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
