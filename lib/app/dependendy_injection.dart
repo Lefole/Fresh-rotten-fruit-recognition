@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:get/get_instance/get_instance.dart';
 
 void injectDependencies() {
   Dio dio = Dio(
     BaseOptions(
-      baseUrl: 'http://192.168.1.5:5050/api/v1/',
+      baseUrl: 'http://10.24.164.121:5050/api/v1/',
     ),
   );
 
