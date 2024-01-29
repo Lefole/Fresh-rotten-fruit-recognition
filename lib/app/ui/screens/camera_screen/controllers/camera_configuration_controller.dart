@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
-import 'dart:ui';
 import 'package:camera/camera.dart';
 import 'package:get/get.dart';
 import 'package:image/image.dart' as img_lib;
@@ -97,56 +95,25 @@ class CameraConfigurationController extends GetxController {
   void takePictureAndNavigate() async {
     stopImageStream();
     XFile picture = await takePicture();
-
-    //final image=img_lib.decodeImage(Uint8List.fromList())
-
     final path = picture.path;
     final bytes = await File(path).readAsBytes();
     final img_lib.Image? image = img_lib.decodeImage(bytes);
 
     List<int> jpg = img_lib.encodeJpg(image!);
     String base64Image = base64Encode(jpg);
-    final response = await objectDetectedApi.getObjectDetectedByJPG(base64Image);
+    final response =
+        await objectDetectedApi.getObjectDetectedByJPG(base64Image);
     objectDetected = response;
-    isDetecting = false;
     update();
-
-    // List<int> imageBytes = await File(picture.path).readAsBytes();
-    // img_lib.Image? image = img_lib.decodeImage(Uint8List.fromList(imageBytes));
-
-    // if (image != null) {
-    //   //File jpegFile = File(picture.path);
-    //   Uint8List.fromList(await File(picture.path).readAsBytes());
-
-    //   //await jpegFile.writeAsBytes(img_lib.encodeJpg(image));
-    // }
-
     navigateToPictureScreen(picture.path);
   }
-
-  // Future<String> savePictureAsJPG(XFile picture) async {
-  //   try {
-  //     List<int> imageBytes = await File(picture.path).readAsBytes();
-  //     img_lib.Image? image =
-  //         img_lib.decodeImage(Uint8List.fromList(imageBytes));
-
-  //     if (image != null) {
-  //       File jpegFile = File(picture.path);
-  //       await jpegFile.writeAsBytes(img_lib.encodeJpg(image));
-  //       //await GallerySaver.saveImage(jpegFile.path);
-  //       log("Picture path: ${picture.path}");
-  //     }
-  //   } catch (e) {
-  //     log("Error: $e");
-  //   }
-  //   return picture.path;
-  // }
 
   void navigateToPictureScreen(String imagePath) {
     PictureScreenController pictureScreenController = Get.put(
       PictureScreenController(),
     );
-    pictureScreenController.init(imagePath, "Apple Rotten", 0.8);
+    pictureScreenController.init(imagePath, objectDetected.label,
+        objectDetected.confidence, objectDetected);
     Get.toNamed("/picture_screen");
   }
 

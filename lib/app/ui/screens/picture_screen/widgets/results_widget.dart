@@ -49,7 +49,7 @@ class ResultsWidget extends StatelessWidget {
                     height: 8,
                   ),
                   Text(
-                    "Identificado con un $confidencePercentage% de coincidencia",
+                    "Identificado con un ${(confidencePercentage * 100).toStringAsFixed(1)}% de coincidencia",
                     textAlign: TextAlign.center,
                   )
                 ],

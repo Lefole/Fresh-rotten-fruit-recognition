@@ -25,7 +25,7 @@ class ObjectDetectedBoxWidget extends StatelessWidget {
     final yProportion = y / 1280;
     log("Proportion: $yProportion - $xProportion");
     return Positioned(
-      top: ((y / 2) * screenHeight) / 1280,
+      top: ((3 / 4) * y * screenHeight) / 1280,
       left: (x * screenWidth) / 720,
       child: Container(
         height: (h * screenHeight) / 1280,
